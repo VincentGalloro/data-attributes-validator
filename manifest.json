@@ -1,6 +1,6 @@
 {
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
+    "name": "Data Attributes Validator",
+    "description": "Data attributes validation tool made by Vincent",
     "version": "1.0",
     "manifest_version": 3,
     "action": {
