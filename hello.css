@@ -1,0 +1,43 @@
+.main {
+    background-color: #222;
+
+    width: 400px;
+
+    font-family: "Inter", serif;
+    font-size: 20px;
+
+    color: #fff;
+}
+
+.checklistContainer {
+    list-style-type: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.checklistIndicator {
+    width: 20px;
+    height: 20px;
+}
+
+.checklistSuccess {
+    color: rgb(137, 255, 143);
+}
+
+.checklistFail {
+    color: rgb(255, 117, 117);
+}
+
+.checklistMaybe {
+    color: rgb(255, 255, 154);
+}
+
+.checklistLoad {
+    animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(-360deg);
+    }
+}
