@@ -148,6 +148,78 @@ function updateProductDetail(data){
     );
 }
 
+function updateConversion(data){
+    const { conversionButtons } = data.conversion;
+
+    if(conversionButtons.length > 0){
+        markStatus('conversionButton', 'SUCCESS', 'Conversion Button(s) Found');
+
+        const conversionList = document.querySelector('#conversionList');
+
+        const subList = document.createElement('ul');
+        subList.classList.add('checklistContainer');
+
+        conversionList.appendChild(subList);
+
+        for(let conversionButton of conversionButtons){
+            const itemElem = document.createElement('li');
+            itemElem.classList.add('checklistSuccess');
+
+            subList.appendChild(itemElem);
+
+            const indicatorElem = document.createElement('img');
+            indicatorElem.src = 'check.png';
+            indicatorElem.className = "checklistIndicator checklistSuccess";
+
+            itemElem.appendChild(indicatorElem);
+
+            const textElem = document.createTextNode(` ${conversionButton}`);
+
+            itemElem.appendChild(textElem);
+        }
+    }
+    else {
+        markStatus('conversionButton', 'IGNORE', undefined);
+    }
+
+    markHeaderStatus(
+        'conversion',
+        conversionButtons.length > 0 ? 'SUCCESS' : 'IGNORE',
+        conversionButtons.length > 0 ? 'Conversion Found' : undefined,
+    )
+}
+
+function updateRecommendation(data){
+    const { isRecommendations, podId, resultId, numResults, recommendationItems } = data.recommendations;
+
+    markStatus('recommendationContainer', isRecommendations ? 'SUCCESS' : 'IGNORE', undefined);
+    
+    markDataAttribute('podId', podId, 'Pod ID', isRecommendations, true);
+    markDataAttribute('resultId', resultId, 'Result ID', isRecommendations, false);
+    markDataAttribute('recommendationNumResults', numResults, 'Num Results', isRecommendations, true);
+    markStatus(
+        'recommendationItems', 
+        recommendationItems > 0 ? 'SUCCESS' : (
+            isRecommendations ? 'MAYBE' : 'IGNORE'
+        ),
+        recommendationItems > 0 ? `${recommendationItems} Recommendation Items Found` : (
+            isRecommendations ? 'No Recommendation Items Found' : undefined
+        )
+    )
+
+    const recsWorking = isRecommendations && podId !== null && numResults !== null && recommendationItems > 0;
+
+    if(recsWorking){
+        markHeaderStatus('recommendations', 'SUCCESS', 'Recommendations Detected');
+    }
+    else if(isRecommendations){
+        markHeaderStatus('recommendations', 'MAYBE', 'Recommendations are Missing Data');
+    }
+    else {
+        markHeaderStatus('recommendations', 'IGNORE', undefined);
+    }
+}
+
 function generateReportUi() {
     const sections = [
         {
@@ -184,6 +256,24 @@ function generateReportUi() {
             items: [
                 { id: 'productDetailContainer', name: 'Product Detail Container' }
             ]
+        },
+        {
+            id: 'conversion',
+            name: 'Conversion',
+            items: [
+                { id: 'conversionButton', name: 'Conversion Button' }
+            ]
+        },
+        {
+            id: 'recommendations',
+            name: 'Recommendations',
+            items: [
+                { id: 'recommendationContainer', name: 'Recommendation Container' },
+                { id: 'podId', name: 'Pod ID' },
+                { id: 'resultId', name: 'Result ID' },
+                { id: 'recommendationNumResults', name: 'Num Results' },
+                { id: 'recommendationItems', name: 'Recommendation Items' },
+            ]
         }
     ];
 
@@ -200,6 +290,7 @@ function generateReportUi() {
         mainList.appendChild(headerElem);
 
         const subList = document.createElement('ul');
+        subList.id = `${section.id}List`;
         subList.classList.add('checklistContainer');
 
         mainList.appendChild(subList);
@@ -225,10 +316,18 @@ function generateReportUi() {
 }
 
 function updateUi(response){
-    setTimeout(() => updateSearch(response), 400);
-    setTimeout(() => updateBrowse(response), 550);
-    setTimeout(() => updateResults(response), 700);
-    setTimeout(() => updateProductDetail(response), 850);
+    const updates = [
+        updateSearch, 
+        updateBrowse, 
+        updateResults, 
+        updateProductDetail, 
+        updateConversion,
+        updateRecommendation,
+    ];
+
+    for(let i = 0; i < updates.length; i++){
+        setTimeout(() => updates[i](response), 400 + i*150);
+    }
 }
 
 function pingAttributes(retry){

@@ -5,7 +5,7 @@ function cqs(name){
 }
 
 function cqsa(name){
-    return document.querySelectorAll(`[data-cnstrc-${name}]`)
+    return Array.from(document.querySelectorAll(`[data-cnstrc-${name}]`));
 }
 
 function cqsd(elem, name){
@@ -43,10 +43,35 @@ function checkProductDetail(){
     return { isProductDetail: !!productDetail }
 }
 
+function checkConversion(){
+    const conversionButtons = Array.from(new Set(
+        cqsa('btn').map(b => cqsd(b, 'Btn'))
+    ));
+
+    return { conversionButtons }
+}
+
 function checkResults(){
     const items = cqsa('item-id');
 
-    return Array.from(items).map(checkResult)
+    return items.map(checkResult)
+}
+
+function checkRecommendations(){
+    const recommendations = cqs('recommendations');
+    const podId = cqsd(recommendations, 'PodId');
+    const resultId = cqsd(recommendations, 'ResultId');
+    const numResults = cqsd(recommendations, 'NumResults');
+
+    const recommendationItems = cqsa('item').map(i => cqsd(i, 'Item')).filter(i => i === "recommendation").length;
+
+    return {
+        isRecommendations: !!recommendations,
+        podId,
+        resultId,
+        numResults,
+        recommendationItems,
+    }
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -56,6 +81,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             browse: checkBrowse(),
             results: checkResults(),
             productDetail: checkProductDetail(),
+            conversion: checkConversion(),
+            recommendations: checkRecommendations(),
         };
         sendResponse(data);
         return true;

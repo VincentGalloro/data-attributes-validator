@@ -1,23 +1,27 @@
 .main {
     background-color: #222;
 
-    width: 400px;
+    width: 440px;
 
     font-family: "Inter", serif;
-    font-size: 20px;
+    font-size: 16px;
 
     color: #fff;
 }
 
+.title {
+    font-size: 20px;
+}
+
 .checklistContainer {
     list-style-type: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .checklistIndicator {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
 }
 
 .checklistSuccess {
