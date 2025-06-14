@@ -43,3 +43,54 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  width: 500px !important;
+  padding: 10px;
+}
+
+/* Checklist list styles for better appearance */
+.checklistContainer {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklistContainer li {
+  font-size: 1.13em; /* Slightly larger font */
+  background: #f7fafd;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: background 0.2s;
+}
+
+.checklistContainer li:hover {
+  background: #e6f0fa;
+}
+
+.checklistIndicator {
+  margin-right: 12px;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.custom-tooltip {
+  position: absolute;
+  left: 110%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #222;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.65em;
+  white-space: nowrap;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  pointer-events: none;
+  opacity: 0.95;
+}

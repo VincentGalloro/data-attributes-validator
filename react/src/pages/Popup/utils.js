@@ -7,11 +7,11 @@ export const STATUS_ICONS = {
 };
 
 export const STATUS_CHARS = {
-  SUCCESS: '✔',
-  FAIL: '✖',
-  MAYBE: '?',
-  IGNORE: '-',
-  LOAD: '...'
+  SUCCESS: '✔', // All required data found and valid
+  FAIL: '✖',    // Required data missing or invalid
+  MAYBE: '?',   // Some optional data missing or uncertain
+  IGNORE: '-',  // Not applicable or not checked
+  LOAD: '...'   // Still loading or checking
 };
 
 const sections = [

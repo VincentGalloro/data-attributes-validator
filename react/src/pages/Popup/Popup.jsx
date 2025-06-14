@@ -1,10 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import './Popup.css';
+import Tabs from './Tabs';
 import { 
   generateInitialChecklist, 
   processResponseData, 
   STATUS_CHARS 
 } from './utils';
+
+const STATUS_TOOLTIPS = {
+  SUCCESS: 'All required data found and valid',
+  FAIL: 'Required data missing or invalid',
+  MAYBE: 'Some optional data missing or uncertain',
+  IGNORE: 'Not applicable or not checked',
+  LOAD: 'Still loading or checking'
+};
+
+const StatusIndicator = ({ status, children }) => {
+  const [show, setShow] = useState(false);
+  return (
+    <span
+      className={`checklistIndicator checklist${status || 'Load'}`}
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+      style={{ position: 'relative' }}
+    >
+      {children}
+      {show && (
+        <span className="custom-tooltip">
+          {STATUS_TOOLTIPS[status] || ''}
+        </span>
+      )}
+    </span>
+  );
+};
 
 const Popup = () => {
   const [checklist, setChecklist] = useState(generateInitialChecklist());
@@ -17,7 +45,6 @@ const Popup = () => {
           { type: "dataAttributesRunCheck" },
           function (response) {
             try {
-              console.log('response',response)
               if (response === undefined) throw Error('Did not receive response');
               setChecklist(processResponseData(response));
             } catch (e) {
@@ -31,35 +58,31 @@ const Popup = () => {
     }
     pingAttributes(15);
   }, []);
-  console.log('checklist',checklist)
+
+  // Prepare tabs for each checklist section
+  const tabs = checklist.map(section => ({
+    label: section.headerText || section.name,
+    content: (
+      <ul id={`${section.id}List`} className="checklistContainer">
+        {section.items.map(item => (
+          <li
+            key={item.id}
+            id={item.id}
+            className={item.status ? `checklist${item.status}` : ''}
+          >
+            <StatusIndicator status={item.status}>
+              {STATUS_CHARS[item.status] || STATUS_CHARS['LOAD']}
+            </StatusIndicator>
+            {item.text || ` ${item.name}`}
+          </li>
+        ))}
+      </ul>
+    )
+  }));
+
   return (
     <div className="main">
-      <div>
-        <ul className="checklistContainer">
-          {checklist.map(section => (
-            <React.Fragment key={section.id}>
-              <li
-                id={section.id}
-                className={section.status ? `checklist${section.status}` : ''}
-              >
-                {section.headerText || section.name}
-              </li>
-              <ul id={`${section.id}List`} className="checklistContainer">
-                {section.items.map(item => (
-                  <li
-                    key={item.id}
-                    id={item.id}
-                    className={item.status ? `checklist${item.status}` : ''}
-                  >
-                    <span className={`checklistIndicator checklist${item.status || 'Load'}`}>{STATUS_CHARS[item.status] || STATUS_CHARS['LOAD']}</span>
-                    {item.text || ` ${item.name}`}
-                  </li>
-                ))}
-              </ul>
-            </React.Fragment>
-          ))}
-        </ul>
-      </div>
+      <Tabs tabs={tabs} />
     </div>
   );
 };
