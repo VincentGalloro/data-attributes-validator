@@ -43,7 +43,8 @@ const Popup = () => {
     label: section.headerText || section.name,
     content: (
       <ChecklistSection section={section} onHighlight={handleHighlight} />
-    )
+    ),
+    status: section.status // Pass status for tab indicator
   }));
 
   return (
