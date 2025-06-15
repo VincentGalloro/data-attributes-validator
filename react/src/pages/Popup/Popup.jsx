@@ -105,9 +105,21 @@ const Popup = () => {
   }));
 
   return (
-    <div className="popup-dark-theme">
+    <div className="popup-dark-theme" style={{ position: 'relative' }}>
       <h2 className="popup-heading">Analyzing Page</h2>
       <Tabs tabs={tabs} />
+      <a
+        href="https://docs.constructor.com/docs/integrating-with-constructor-behavioral-tracking-data-driven-event-tracking"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="logo-fixed-bottom-right"
+      >
+        <img
+          src="https://constructor.com/hubfs/Website%20-%202024/Logos/Logo-white.svg"
+          alt="Constructor Logo"
+          style={{ width: 80, height: 'auto', opacity: 0.85 }}
+        />
+      </a>
     </div>
   );
 };
