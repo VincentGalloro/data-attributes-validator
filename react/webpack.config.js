@@ -184,6 +184,19 @@ var options = {
         },
       ],
     }),
+    // Copy all static assets from public/ to build/ (excluding index.html if needed)
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'public',
+          to: '.',
+          globOptions: {
+            ignore: ['**/index.html'], // ignore index.html if you use it as a template
+          },
+          noErrorOnMissing: true,
+        },
+      ],
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.html'),
       filename: 'newtab.html',

@@ -72,6 +72,17 @@ body {
   background: #e6f0fa;
 }
 
+.checklistContainer.small {
+  list-style: decimal;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.checklistContainer.small li {
+  font-size: 1em;
+  padding: 6px 8px;
+}
+
 .checklistIndicator {
   margin-right: 12px;
   font-size: 1.3em;

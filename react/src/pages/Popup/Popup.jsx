@@ -3,8 +3,7 @@ import './Popup.css';
 import Tabs from './Tabs';
 import { 
   generateInitialChecklist, 
-  processResponseData, 
-  STATUS_CHARS 
+  processResponseData 
 } from './utils';
 
 const STATUS_TOOLTIPS = {
@@ -15,8 +14,17 @@ const STATUS_TOOLTIPS = {
   LOAD: 'Still loading or checking'
 };
 
-const StatusIndicator = ({ status, children }) => {
+const STATUS_ICONS = {
+  SUCCESS: 'icons/check.png',
+  FAIL: 'icons/x.png',
+  MAYBE: 'icons/maybe.png',
+  IGNORE: 'icons/ignore.png',
+  LOAD: 'icons/load.png',
+};
+
+const StatusIndicator = ({ status }) => {
   const [show, setShow] = useState(false);
+  const iconSrc = STATUS_ICONS[status] || STATUS_ICONS['LOAD'];
   return (
     <span
       className={`checklistIndicator checklist${status || 'Load'}`}
@@ -24,7 +32,12 @@ const StatusIndicator = ({ status, children }) => {
       onMouseLeave={() => setShow(false)}
       style={{ position: 'relative' }}
     >
-      {children}
+      <img
+        src={iconSrc}
+        alt={status || 'LOAD'}
+        className={`checklistIndicator checklist${status || 'Load'}`}
+        style={{ width: 18, height: 18, marginRight: 6 }}
+      />
       {show && (
         <span className="custom-tooltip">
           {STATUS_TOOLTIPS[status] || ''}
@@ -69,11 +82,22 @@ const Popup = () => {
             key={item.id}
             id={item.id}
             className={item.status ? `checklist${item.status}` : ''}
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
           >
-            <StatusIndicator status={item.status}>
-              {STATUS_CHARS[item.status] || STATUS_CHARS['LOAD']}
-            </StatusIndicator>
-            {item.text || ` ${item.name}`}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <StatusIndicator status={item.status} />
+              {item.text || ` ${item.name}`}
+            </div>
+            {/* Generic sub-child rendering for any item.subList */}
+            {Array.isArray(item.subList) && item.subList.length > 0 && (
+              <ol className="checklistContainer small" >
+                {item.subList.map((sub, idx) => (
+                  <li key={idx} className="checklistSuccess">
+                    {sub}
+                  </li>
+                ))}
+              </ol>
+            )}
           </li>
         ))}
       </ul>
