@@ -73,6 +73,16 @@ const Popup = () => {
   }, []);
 
   // Prepare tabs for each checklist section
+  const handleHighlight = (sectionId, itemId, action) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        type: action === 'highlight' ? 'highlightElement' : 'unhighlightElement',
+        sectionId,
+        itemId
+      });
+    });
+  };
+
   const tabs = checklist.map(section => ({
     label: section.headerText || section.name,
     content: (
@@ -83,6 +93,8 @@ const Popup = () => {
             id={item.id}
             className={item.status ? `checklist${item.status}` : ''}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
+            onMouseEnter={() => handleHighlight(section.id, item.id, 'highlight')}
+            onMouseLeave={() => handleHighlight(section.id, item.id, 'unhighlight')}
           >
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <StatusIndicator status={item.status} />
