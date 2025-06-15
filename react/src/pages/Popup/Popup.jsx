@@ -105,7 +105,8 @@ const Popup = () => {
   }));
 
   return (
-    <div className="main">
+    <div className="popup-dark-theme">
+      <h2 className="popup-heading">Analyzing Page</h2>
       <Tabs tabs={tabs} />
     </div>
   );

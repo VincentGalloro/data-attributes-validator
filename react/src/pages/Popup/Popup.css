@@ -45,8 +45,7 @@
 }
 
 body {
-  width: 500px !important;
-  padding: 10px;
+  width: 600px !important;
 }
 
 /* Checklist list styles for better appearance */
@@ -57,19 +56,20 @@ body {
 }
 
 .checklistContainer li {
-  font-size: 1.13em; /* Slightly larger font */
-  background: #f7fafd;
+  font-size: 1.13em;
+  background: #23283a;
   margin-bottom: 10px;
-  border-radius: 7px;
-  padding: 12px 16px;
+  border-radius: 8px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10);
   transition: background 0.2s;
+  color: #fff;
 }
 
 .checklistContainer li:hover {
-  background: #e6f0fa;
+  background: #2d3347;
 }
 
 .checklistContainer.small {
@@ -81,6 +81,8 @@ body {
 .checklistContainer.small li {
   font-size: 1em;
   padding: 6px 8px;
+  background: #23283a;
+  color: #b3baff;
 }
 
 .checklistIndicator {
@@ -89,19 +91,103 @@ body {
   font-weight: bold;
 }
 
+.checklistSuccess {
+  color: #7fffa7 !important;
+}
+.checklistFail {
+  color: #ff6b81 !important;
+}
+.checklistMaybe {
+  color: #ffe066 !important;
+}
+.checklistLoad {
+  filter: drop-shadow(0 0 4px #4f8cff);
+  animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+/*
+  Modern dark theme for popup
+  - Dark backgrounds
+  - White text
+  - Cool accent colors for statuses and tabs
+*/
+
+.popup-dark-theme {
+  background: #181c24;
+  color: #fff;
+  min-width: 340px;
+  min-height: 320px;
+  padding: 18px 16px 12px 16px;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
+.popup-heading {
+  font-size: 1.45em;
+  font-weight: 700;
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.tabs-container {
+  display: flex;
+  width: 100%;
+  background: none;
+}
+.tabs-header {
+  display: flex;
+  flex-direction: column;
+  border-right: 1.5px solid #23283a;
+  margin-right: 12px;
+  padding-right: 6px;
+}
+.tab-btn {
+  background: #23213a;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #bbaaff;
+  border-right: 2.5px solid transparent;
+  border-radius: 6px 0 0 6px;
+  margin-bottom: 2px;
+  transition: border 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+  text-align: left;
+  box-shadow: none;
+}
+.tab-btn.active {
+  border-right: 3px solid #a07cff;
+  color: #a07cff;
+  background: #2d2347;
+  box-shadow: 0 2px 12px 0 rgba(160,124,255,0.10);
+  z-index: 1;
+}
+.tabs-content {
+  padding: 0;
+  flex: 1;
+}
+
 .custom-tooltip {
   position: absolute;
   left: 110%;
   top: 50%;
   transform: translateY(-50%);
-  background: #222;
+  background: #23283a;
   color: #fff;
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 0.65em;
   white-space: nowrap;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
   pointer-events: none;
-  opacity: 0.95;
+  opacity: 0.97;
 }
