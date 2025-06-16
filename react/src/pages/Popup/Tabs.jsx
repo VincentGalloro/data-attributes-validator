@@ -15,7 +15,7 @@ const Tabs = ({ tabs }) => {
             onClick={() => setActiveTab(idx)}
           >
             {/* Show indicator only for SUCCESS, FAIL, MAYBE */}
-            {['SUCCESS', 'FAIL', 'MAYBE'].includes(tab.status) && (
+            {['SUCCESS', 'FAIL', 'MAYBE','IGNORE'].includes(tab.status) && (
               <StatusIndicator status={tab.status} />
             )}
             {tab.label}
