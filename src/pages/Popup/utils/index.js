@@ -1,10 +1,10 @@
-
 import { processSearchSection } from './processSearchSection';
 import { processBrowseSection } from './processBrowseSection';
 import { processItemResultsSection } from './processItemResultsSection';
 import { processProductDetailSection } from './processProductDetailSection';
 import { processConversionSection } from './processConversionSection';
 import { processRecommendationsSection } from './processRecommendationsSection';
+import { processAutoCompleteSection } from './processAutoCompleteSection';
 export const STATUS_ICONS = {
   SUCCESS: 'check.png',
   FAIL: 'x.png',
@@ -74,6 +74,17 @@ const sections = [
       { id: 'recommendationNumResults', name: 'Num Results' },
       { id: 'recommendationItems', name: 'Recommendation Items' },
     ]
+  },
+  {
+    id: 'autoComplete',
+    name: 'Auto Complete',
+    items: [
+      { id: 'searchForm', name: 'Search Form (data-cnstrc-search-form)' },
+      { id: 'searchInput', name: 'Search Input (data-cnstrc-search-input)' },
+      { id: 'searchSubmitBtn', name: 'Search Submit Button (data-cnstrc-search-submit-btn)' },
+      { id: 'autosuggest', name: 'Results List Container (data-cnstrc-autosuggest)' },
+      { id: 'resultItems', name: 'Result Items (data-cnstrc-item-section, ...)' }
+    ]
   }
 ];
 
@@ -117,6 +128,7 @@ export function processResponseData(data) {
   processProductDetailSection(data, checklist);
   processConversionSection(data, checklist);
   processRecommendationsSection(data, checklist);
+  processAutoCompleteSection(data, checklist);
 
   return checklist;
 }

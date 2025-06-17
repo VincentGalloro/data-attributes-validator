@@ -5,7 +5,8 @@ import {
   checkResults,
   checkProductDetail,
   checkConversion,
-  checkRecommendations
+  checkRecommendations,
+  checkAutoComplete
 } from './checks';
 import { highlightElement, unhighlightElement } from './highlight';
 
@@ -19,6 +20,7 @@ export function setupMessageHandler() {
         productDetail: checkProductDetail(),
         conversion: checkConversion(),
         recommendations: checkRecommendations(),
+        autoComplete: checkAutoComplete(),
       };
       sendResponse(data);
       return true;

@@ -38,6 +38,12 @@ export function highlightElement(sectionId, itemId) {
         resultId: ['recommendations', 'result-id'],
         recommendationNumResults: ['recommendations', 'num-results'],
         recommendationItems: ['item'],
+        // Auto Complete section
+        searchForm: ['search-form'],
+        searchInput: ['search-input'],
+        searchSubmitBtn: ['search-submit-btn'],
+        autosuggest: ['autosuggest'],
+        resultItems: ['item-section'],
     };
     const attrs = itemAttributeMap[itemId];
     if (attrs && attrs.length > 0) {

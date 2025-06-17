@@ -1,5 +1,5 @@
 // All check* functions for content script
-import { cqs, cqsa, cqsd } from './selectors';
+import { cqs, cqsa, cqsd, cqsaWithin } from './selectors';
 
 export function checkSearch() {
     const search = cqs('search');
@@ -29,9 +29,16 @@ export function checkProductDetail() {
 }
 
 export function checkConversion() {
-    const conversionButtons = Array.from(new Set(
-        cqsa('btn').map(b => cqsd(b, 'Btn'))
-    ));
+    // Get all conversion buttons (case-insensitive for attribute)
+    const buttons = cqsa('btn');
+    const buttonMap = {};
+    buttons.forEach(b => {
+        // Try both lower and upper case for attribute
+        let name = cqsd(b, 'Btn') || cqsd(b, 'btn') || 'Unnamed Button';
+        buttonMap[name] = (buttonMap[name] || 0) + 1;
+    });
+    // Convert to array of {name, count}
+    const conversionButtons = Object.entries(buttonMap).map(([name, count]) => ({ name, count }));
     return { conversionButtons };
 }
 
@@ -52,5 +59,34 @@ export function checkRecommendations() {
         resultId,
         numResults,
         recommendationItems,
+    };
+}
+
+export function checkAutoComplete() {
+    const form = !!cqs('search-form');
+    const input = !!cqs('search-input');
+    const submitBtn = !!cqs('search-submit-btn');
+    const autosuggestEl = cqs('autosuggest');
+    const autosuggest = !!autosuggestEl;
+
+    // Find all item-section elements under autosuggest
+    const sectionNodes = autosuggestEl ? cqsa('item-section', autosuggestEl) : [];
+    // For each section, get its name and count of items
+    const sections = sectionNodes.map(sectionNode => {
+        const sectionName = cqsd(sectionNode, 'ItemSection');
+        // Use cqsaWithin to get all item-name elements within this section
+        const items = cqsaWithin('item-name', sectionNode);
+        return {
+            section: sectionName,
+            itemCount: items.length
+        };
+    });
+
+    return {
+        form,
+        input,
+        submitBtn,
+        autosuggest,
+        sections
     };
 }

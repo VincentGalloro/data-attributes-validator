@@ -3,13 +3,13 @@ export function processConversionSection(data, checklist) {
   const { conversionButtons } = data.conversion;
   const conversionSection = checklist.find(s => s.id === 'conversion');
   if (conversionButtons && conversionButtons.length > 0) {
-    const buttonCount = conversionButtons.length;
+    const buttonCount = conversionButtons.reduce((acc, btn) => acc + btn.count, 0);
     conversionSection.items[0].status = 'SUCCESS';
     conversionSection.items[0].text = `Conversion Button(s) Found (${buttonCount})`;
     conversionSection.status = 'SUCCESS';
     conversionSection.headerText = `Conversion Found (${buttonCount})`;
-    // Use generic subList property for sub-child rendering in UI
-    conversionSection.items[0].subList = conversionButtons;
+    // Show each button type and its count
+    conversionSection.items[0].subList = conversionButtons.map(btn => `${btn.name} (${btn.count})`);
   } else {
     conversionSection.items[0].status = 'IGNORE';
     conversionSection.items[0].text = null;
