@@ -23,7 +23,7 @@ export function processItemResultsSection(data, checklist) {
     itemResultsSection.status = 'FAIL';
     itemResultsSection.headerText = `Item Results Found (${results.length}), Some Incomplete`;
   } else {
-    itemResultsSection.status = null;
+    itemResultsSection.status = 'IGNORE';
     itemResultsSection.headerText = null;
   }
 }
