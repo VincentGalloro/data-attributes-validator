@@ -42,7 +42,7 @@ export function checkResults() {
 
 export function checkRecommendations() {
     const recommendations = cqs('recommendations');
-    const podId = cqsd(recommendations, 'PodId');
+    const podId = cqsd(recommendations, 'RecommendationsPodId');
     const resultId = cqsd(recommendations, 'ResultId');
     const numResults = cqsd(recommendations, 'NumResults');
     const recommendationItems = cqsa('item').map(i => cqsd(i, 'Item')).filter(i => i === "recommendation").length;
