@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Tabs.css';
 import StatusIndicator from './StatusIndicator';
 
-const Tabs = ({ tabs }) => {
-  const [activeTab, setActiveTab] = useState(0);
-
+const Tabs = ({ tabs, activeTab, setActiveTab }) => {
   return (
     <div className="tabs-container">
       <div className="tabs-header">

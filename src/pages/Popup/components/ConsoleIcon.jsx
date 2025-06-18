@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from './Tooltip';
+import Tooltip from '../Tooltip';
 
 const ConsoleIcon = ({ onClick }) => (
   <Tooltip content="Log this element to the browser console" position="left">

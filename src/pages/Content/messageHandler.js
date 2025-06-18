@@ -8,8 +8,8 @@ import {
   checkRecommendations,
   checkAutoComplete
 } from './checks';
-import { highlightElement, unhighlightElement } from './highlight';
-import { logElement } from './logElement';
+import { highlightElement, unhighlightElement, highlightElementByItemIdValue, unhighlightElementByItemIdValue, highlightElementsByAttribute, unhighlightElementsByAttribute } from './highlight';
+import { logElement, logElementsByAttribute } from './logElement';
 
 export function setupMessageHandler() {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -34,6 +34,15 @@ export function setupMessageHandler() {
     }
     if (request.type === 'logElement') {
       logElement(request.sectionId, request.itemId);
+    }
+    if (request.type === 'highlightElementsByAttribute') {
+      highlightElementsByAttribute(request.attribute, request.value);
+    }
+    if (request.type === 'unhighlightElementsByAttribute') {
+      unhighlightElementsByAttribute(request.attribute, request.value);
+    }
+    if (request.type === 'logElementsByAttribute') {
+      logElementsByAttribute(request.attribute, request.value);
     }
   });
 }

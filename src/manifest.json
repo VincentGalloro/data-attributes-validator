@@ -27,5 +27,8 @@
       "resources": ["content.styles.css", "constructor.png", "constructor.png"],
       "matches": []
     }
+  ],
+  "permissions": [
+    "storage"
   ]
 }

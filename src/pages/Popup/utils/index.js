@@ -44,6 +44,7 @@ const sections = [
     id: 'itemResults',
     name: "Item Results",
     items: [
+      { id: "customNoOfItems", customComponent: 'NoOfItemsExistsInTheCatalogue' },
       { id: "itemId", name: "Item ID" },
       { id: "itemName", name: "Item Name" },
       { id: "itemVariationId", name: "Item Vatiation ID" },

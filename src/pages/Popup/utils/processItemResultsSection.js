@@ -16,6 +16,10 @@ export function processItemResultsSection(data, checklist) {
   itemResultsSection.items[2].text = anyResults ? `Items with Variation ID (${itemsWithVariationId})` : 'No Item Variation IDs Found';
   itemResultsSection.items[3].status = anyResults && itemsWithPrice === results.length ? 'SUCCESS' : (anyResults ? 'MAYBE' : 'IGNORE');
   itemResultsSection.items[3].text = anyResults ? `Items with Price (${itemsWithPrice})` : 'No Item Prices Found';
+
+  // Attach raw results array for use in custom components
+  itemResultsSection.results = results;
+
   if (anyResults && itemsWithName === results.length) {
     itemResultsSection.status = 'SUCCESS';
     itemResultsSection.headerText = `Item Results Found (${results.length})`;

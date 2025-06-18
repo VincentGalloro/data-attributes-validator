@@ -14,3 +14,18 @@ export function logElement(sectionId, itemId) {
         });
     }
 }
+
+// Generic logger for elements by attribute and value
+export function logElementsByAttribute(attribute, value) {
+    const selector = `[data-cnstrc-${attribute}="${value}"]`;
+    const elements = document.querySelectorAll(selector);
+    if (elements.length === 0) {
+        // eslint-disable-next-line no-console
+        console.warn(`No elements found for [data-cnstrc-${attribute}="${value}"]`);
+    } else {
+        elements.forEach(el => {
+            // eslint-disable-next-line no-console
+            console.log('Constructor Data Attribute Element:', el);
+        });
+    }
+}

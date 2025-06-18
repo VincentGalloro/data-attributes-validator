@@ -1,6 +1,6 @@
 import React from 'react';
 import StatusIndicator from './StatusIndicator';
-import ConsoleIcon from './ConsoleIcon';
+import ConsoleIcon from './components/ConsoleIcon';
 
 const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement }) => (
   <li

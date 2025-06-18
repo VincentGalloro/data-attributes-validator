@@ -3,9 +3,12 @@ import './Popup.css';
 import Tabs from './Tabs';
 import ChecklistSection from './ChecklistSection';
 import { generateInitialChecklist, processResponseData } from './utils';
+import SettingsTab from './SettingsTab';
+import SettingsIcon from '../../customComponents/NoOfItemsExistsInTheCatalogue/SettingsIcon';
 
 const Popup = () => {
   const [checklist, setChecklist] = useState(generateInitialChecklist());
+  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
     function pingAttributes(retry) {
@@ -49,18 +52,33 @@ const Popup = () => {
     });
   };
 
-  const tabs = checklist.map(section => ({
+  const checklistTabs = checklist.map(section => ({
     label: section.headerText || section.name,
     content: (
-      <ChecklistSection section={section} onHighlight={handleHighlight} onLogElement={handleLogElement} />
+      <ChecklistSection section={section} onHighlight={handleHighlight} onLogElement={handleLogElement} checklist={checklist} />
     ),
     status: section.status // Pass status for tab indicator
   }));
 
+  const tabs = [
+    ...checklistTabs,
+    {
+      label: 'Settings',
+      content: <SettingsTab />,
+      status: undefined
+    }
+  ];
+
+  // Settings tab index
+  const settingsTabIndex = tabs.length - 1;
+
   return (
     <div className="popup-dark-theme" style={{ position: 'relative' }}>
-      <h2 className="popup-heading">Analyzing Page</h2>
-      <Tabs tabs={tabs} />
+      <h2 className="popup-heading" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        Analyzing Page
+        <SettingsIcon onClick={() => setActiveTab(settingsTabIndex)} />
+      </h2>
+      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
       <a
         href="https://docs.constructor.com/docs/integrating-with-constructor-behavioral-tracking-data-driven-event-tracking"
         target="_blank"

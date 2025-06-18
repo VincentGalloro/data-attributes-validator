@@ -34,3 +34,19 @@ export function highlightElement(sectionId, itemId) {
 export function unhighlightElement() {
     document.querySelectorAll('.' + HIGHLIGHT_CLASS).forEach(el => el.classList.remove(HIGHLIGHT_CLASS));
 }
+
+// Highlight elements by a specific attribute name and value (generic)
+export function highlightElementsByAttribute(attribute, value) {
+    ensureHighlightStyle();
+    const selector = `[data-cnstrc-${attribute}="${value}"]`;
+    document.querySelectorAll(selector).forEach(el => {
+        el.classList.add(HIGHLIGHT_CLASS);
+    });
+}
+
+export function unhighlightElementsByAttribute(attribute, value) {
+    const selector = `[data-cnstrc-${attribute}="${value}"]`;
+    document.querySelectorAll(selector).forEach(el => {
+        el.classList.remove(HIGHLIGHT_CLASS);
+    });
+}
