@@ -20,7 +20,7 @@ const STATUS_ICONS = {
 const StatusIndicator = ({ status }) => {
   const iconSrc = STATUS_ICONS[status] || STATUS_ICONS['LOAD'];
   return (
-    <Tooltip content={STATUS_TOOLTIPS[status] || ''}>
+    <Tooltip position='right' content={STATUS_TOOLTIPS[status] || ''}>
       <span
         className={`checklistIndicator checklist${status || 'Load'}`}
         style={{ position: 'relative' }}
