@@ -1,0 +1,53 @@
+/* Styles for NoOfItemsExistsInTheCatalogueMain */
+.catalogue-check {
+  color: #b3baff;
+  margin-top: 8px;
+  font-size: 0.95em;
+}
+.catalogue-check-title {
+  font-weight: bold;
+}
+.catalogue-check-status {
+  margin: 8px 0 4px 0;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.catalogue-check-matched {
+  color: #6fcf97;
+  font-weight: 600;
+}
+.catalogue-check-missing {
+  font-weight: 600;
+}
+.catalogue-check-missing.red {
+  color: red;
+}
+.catalogue-check-missing.green {
+  color: #6fcf97;
+}
+.catalogue-check-success {
+  color: #6fcf97;
+}
+.catalogue-check-error {
+  color: red;
+  margin-top: 5px;
+  display: block;
+}
+.catalogue-check-loading {
+  color: #b3baff;
+}
+.catalogue-missing-list {
+  color: red;
+  font-size: 0.92em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.catalogue-missing-list-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 2px 0;
+}

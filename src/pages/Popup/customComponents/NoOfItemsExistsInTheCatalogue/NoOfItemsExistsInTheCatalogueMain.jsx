@@ -1,7 +1,9 @@
 // File: src/customComponents/NoOfItemsExistsInTheCatalogue/NoOfItemsExistsInTheCatalogueMain.jsx
 
 import React, { useEffect, useState, useMemo } from 'react';
+import './NoOfItemsExistsInTheCatalogueMain.css';
 import ConsoleIcon from '../../components/ConsoleIcon';
+import Accordion from '../../components/Accordion';
 
 const API_BASE = 'https://ac.cnstrc.com/browse/items';
 
@@ -17,7 +19,7 @@ const NoOfItemsExistsInTheCatalogueMain = ({ checklist, indexKey }) => {
   useEffect(() => {
     const fetchIndexKey = async () => {
       if (!indexKey) {
-        setResult({ loading: false, error: 'Index key not found.', missing: [], found: [] });
+        setResult({ loading: false, error: 'Index key not found. Please go to the extension settings and add your index key to proceed.', missing: [], found: [] });
         return;
       }
       if (!itemIds.length) {
@@ -25,7 +27,7 @@ const NoOfItemsExistsInTheCatalogueMain = ({ checklist, indexKey }) => {
         return;
       }
       setResult(r => ({ ...r, loading: true }));
-      const params = new URLSearchParams({ key: indexKey, c: 'CIOExtension' });
+      const params = new URLSearchParams({ key: indexKey, c: 'CIOExtension', num_results_per_page: 200 });
       itemIds.forEach(id => params.append('ids', id));
       fetch(`${API_BASE}?${params.toString()}`)
         .then(res => res.json())
@@ -67,22 +69,33 @@ const NoOfItemsExistsInTheCatalogueMain = ({ checklist, indexKey }) => {
   };
 
   return (
-    <div style={{ color: '#b3baff', marginTop: 8, fontSize: '0.95em' }}>
-      <b>Catalogue Check:</b><br />
-      {result.loading && 'Checking catalogue...'}
-      {result.error && <span style={{ color: 'red' }}>{result.error}</span>}
+    <div className="catalogue-check">
+      <span className="catalogue-check-title">Catalogue Check:</span><br />
+      {result.loading && (
+        <span className="catalogue-check-loading">Checking catalogue...</span>
+      )}
+      {!result.loading && result.error && (
+        <span className="catalogue-check-error">{result.error}</span>
+      )}
       {!result.loading && !result.error && (
         <>
+          <div className="catalogue-check-status">
+            <span className="catalogue-check-matched">
+              Matched: {result.found.length}
+            </span>
+            <span className={`catalogue-check-missing ${result.missing.length ? 'red' : 'green'}`}> 
+              Missing: {result.missing.length}
+            </span>
+          </div>
           {result.missing.length === 0 ? (
-            <span style={{ color: '#6fcf97' }}>All item IDs found in catalogue.</span>
+            <span className="catalogue-check-success">All item IDs found in catalogue.</span>
           ) : (
-            <div style={{ marginTop: 6 }}>
-              <div style={{ color: 'red', fontWeight: 600, fontSize: '0.98em', marginBottom: 2 }}>Missing Item IDs:</div>
-              <ul style={{ color: 'red', fontSize: '0.92em', margin: 0, padding: 0, listStyle: 'none' }}>
+            <Accordion title={`Show missing item IDs (${result.missing.length})`} defaultOpen={false}>
+              <ul className="catalogue-missing-list">
                 {result.missing.map((id) => (
                   <li
                     key={id}
-                    style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', padding: '2px 0' }}
+                    className="catalogue-missing-list-item"
                     onMouseEnter={() => handleHighlight(id, 'highlight')}
                     onMouseLeave={() => handleHighlight(id, 'unhighlight')}
                   >
@@ -93,7 +106,7 @@ const NoOfItemsExistsInTheCatalogueMain = ({ checklist, indexKey }) => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Accordion>
           )}
         </>
       )}

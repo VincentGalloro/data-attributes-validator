@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import NoOfItemsExistsInTheCatalogueMain from './NoOfItemsExistsInTheCatalogueMain';
 import { getIndexKey } from '../../utils/settings';
+import './NoOfItemsExistsInTheCatalogueMain.css';
 
 const NoOfItemsExistsInTheCatalogue = ({ checklist }) => {
   const [indexKey, setIndexKey] = useState('');
@@ -16,7 +17,7 @@ const NoOfItemsExistsInTheCatalogue = ({ checklist }) => {
   }, []);
 
   return (
-    <div style={{ position: 'relative', minHeight: 80, flex: 1 }}>
+    <div style={{ position: 'relative', minHeight: 40, flex: 1 }}>
       <NoOfItemsExistsInTheCatalogueMain checklist={checklist} indexKey={indexKey} />
     </div>
   );
