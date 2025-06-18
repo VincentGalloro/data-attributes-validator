@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getIndexKey, setIndexKey } from '../../customComponents/NoOfItemsExistsInTheCatalogue/settings';
+import { getIndexKey, setIndexKey } from '../utils/settings';
 
 const SettingsTab = () => {
   const [indexKey, setIndexKeyState] = useState('');

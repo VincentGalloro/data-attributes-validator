@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Popup.css';
-import Tabs from './Tabs';
-import ChecklistSection from './ChecklistSection';
+import Tabs from './components/Tabs';
+import ChecklistSection from './components/ChecklistSection';
 import { generateInitialChecklist, processResponseData } from './utils';
-import SettingsTab from './SettingsTab';
-import SettingsIcon from '../../customComponents/NoOfItemsExistsInTheCatalogue/SettingsIcon';
+import SettingsTab from './tabs/SettingsTab';
+import SettingsIcon from './components/SettingsIcon';
 
 const Popup = () => {
   const [checklist, setChecklist] = useState(generateInitialChecklist());

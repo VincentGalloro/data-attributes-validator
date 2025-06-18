@@ -1,7 +1,7 @@
 // index.js
 import React, { useState, useEffect } from 'react';
 import NoOfItemsExistsInTheCatalogueMain from './NoOfItemsExistsInTheCatalogueMain';
-import { getIndexKey } from './settings';
+import { getIndexKey } from '../../utils/settings';
 
 const NoOfItemsExistsInTheCatalogue = ({ checklist }) => {
   const [indexKey, setIndexKey] = useState('');

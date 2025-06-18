@@ -1,6 +1,6 @@
 import React from 'react';
 import ChecklistItem from './ChecklistItem';
-import NoOfItemsExistsInTheCatalogue from '../../customComponents/NoOfItemsExistsInTheCatalogue';
+import NoOfItemsExistsInTheCatalogue from '../customComponents/NoOfItemsExistsInTheCatalogue';
 
 const customComponents = {
   NoOfItemsExistsInTheCatalogue,

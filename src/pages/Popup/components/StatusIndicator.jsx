@@ -1,5 +1,4 @@
 import React from 'react';
-import './Popup.css';
 import Tooltip from './Tooltip';
 
 const STATUS_TOOLTIPS = {

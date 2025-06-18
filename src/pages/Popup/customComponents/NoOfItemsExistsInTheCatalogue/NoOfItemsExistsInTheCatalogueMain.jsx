@@ -1,8 +1,7 @@
 // File: src/customComponents/NoOfItemsExistsInTheCatalogue/NoOfItemsExistsInTheCatalogueMain.jsx
 
 import React, { useEffect, useState, useMemo } from 'react';
-import { getIndexKey } from './settings';
-import ConsoleIcon from '../../pages/Popup/components/ConsoleIcon';
+import ConsoleIcon from '../../components/ConsoleIcon';
 
 const API_BASE = 'https://ac.cnstrc.com/browse/items';
 
