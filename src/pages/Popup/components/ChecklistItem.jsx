@@ -3,7 +3,7 @@ import StatusIndicator from './StatusIndicator';
 import ConsoleIcon from './ConsoleIcon';
 import JsonViewer from './JsonViewer';
 
-const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement }) => {
+const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement, onClick }) => {
   // Enable highlight and console icon only if status is 'success' and not for requestObject section
   const enableActions = item.status === 'SUCCESS' && sectionId !== 'requestObject';
 
@@ -15,6 +15,7 @@ const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement }) => {
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
       onMouseEnter={enableActions ? () => onHighlight(sectionId, item.id, 'highlight') : undefined}
       onMouseLeave={enableActions ? () => onHighlight(sectionId, item.id, 'unhighlight') : undefined}
+      onClick={enableActions && onClick ? () => onClick(sectionId, item.id) : undefined}
     >
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

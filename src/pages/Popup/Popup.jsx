@@ -53,10 +53,20 @@ const Popup = () => {
     });
   };
 
+  const handleItemClick = (sectionId, itemId) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        type: 'scrollToElement',
+        sectionId,
+        itemId
+      });
+    });
+  };
+
   const checklistTabs = checklist.map(section => ({
     label: section.headerText || section.name,
     content: (
-      <ChecklistSection section={section} onHighlight={handleHighlight} onLogElement={handleLogElement} checklist={checklist} />
+      <ChecklistSection section={section} onHighlight={handleHighlight} onLogElement={handleLogElement} onItemClick={handleItemClick} checklist={checklist} />
     ),
     status: section.status // Pass status for tab indicator
   }));

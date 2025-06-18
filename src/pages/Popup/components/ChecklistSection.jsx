@@ -6,7 +6,7 @@ const customComponents = {
   NoOfItemsExistsInTheCatalogue,
 };
 
-const ChecklistSection = ({ section, onHighlight, onLogElement, checklist }) => (
+const ChecklistSection = ({ section, onHighlight, onLogElement, onItemClick, checklist }) => (
   <ul id={`${section.id}List`} className="checklistContainer">
     {section.items.map(item => {
       if (item.customComponent && customComponents[item.customComponent]) {
@@ -24,6 +24,7 @@ const ChecklistSection = ({ section, onHighlight, onLogElement, checklist }) => 
           item={item}
           onHighlight={onHighlight}
           onLogElement={onLogElement}
+          onClick={onItemClick}
         />
       );
     })}

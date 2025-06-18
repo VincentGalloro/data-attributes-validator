@@ -12,6 +12,10 @@ import {
 import { highlightElement, unhighlightElement, highlightElementByItemIdValue, unhighlightElementByItemIdValue, highlightElementsByAttribute, unhighlightElementsByAttribute } from './highlight';
 import { logElement, logElementsByAttribute } from './logElement';
 
+import { scrollToElementBySectionAndItem } from './scrollToElement';
+
+
+
 export function setupMessageHandler() {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === 'dataAttributesRunCheck') {
@@ -45,6 +49,9 @@ export function setupMessageHandler() {
     }
     if (request.type === 'logElementsByAttribute') {
       logElementsByAttribute(request.attribute, request.value);
+    }
+    if (request.type === 'scrollToElement') {
+      scrollToElementBySectionAndItem(request.sectionId, request.itemId);
     }
   });
 }
