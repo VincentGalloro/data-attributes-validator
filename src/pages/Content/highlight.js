@@ -23,12 +23,10 @@ export function highlightElement(sectionId, itemId) {
     ensureHighlightStyle();
     const attrs = itemAttributeMap[itemId];
     if (attrs && attrs.length > 0) {
+        // Only use the first attribute for highlighting (fix for multi-attribute items like Num Results)
         const selector = `[data-cnstrc-${attrs[0]}]`;
         document.querySelectorAll(selector).forEach(el => {
-            const allExist = attrs.every(attr => el.hasAttribute(`data-cnstrc-${attr}`));
-            if (allExist) {
-                el.classList.add(HIGHLIGHT_CLASS);
-            }
+            el.classList.add(HIGHLIGHT_CLASS);
         });
     }
 }

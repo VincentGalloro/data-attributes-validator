@@ -11,10 +11,14 @@ const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement }) => (
     onMouseEnter={() => onHighlight(sectionId, item.id, 'highlight')}
     onMouseLeave={() => onHighlight(sectionId, item.id, 'unhighlight')}
   >
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <StatusIndicator status={item.status} />
-      {item.text || ` ${item.name}`}
-      <ConsoleIcon onClick={e => { e.stopPropagation(); onLogElement(sectionId, item.id); }} />
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+      <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <StatusIndicator status={item.status} />
+        {item.text || ` ${item.name}`}
+      </span>
+      <span style={{ marginLeft: 'auto' }}>
+        <ConsoleIcon onClick={e => { e.stopPropagation(); onLogElement(sectionId, item.id); }} />
+      </span>
     </div>
     {Array.isArray(item.subList) && item.subList.length > 0 && (
       <ol className="checklistContainer small" >
