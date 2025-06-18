@@ -9,6 +9,7 @@ import {
   checkAutoComplete
 } from './checks';
 import { highlightElement, unhighlightElement } from './highlight';
+import { logElement } from './logElement';
 
 export function setupMessageHandler() {
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -30,6 +31,9 @@ export function setupMessageHandler() {
     }
     if (request.type === 'unhighlightElement') {
       unhighlightElement();
+    }
+    if (request.type === 'logElement') {
+      logElement(request.sectionId, request.itemId);
     }
   });
 }

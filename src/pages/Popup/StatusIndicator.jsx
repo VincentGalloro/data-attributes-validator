@@ -1,5 +1,6 @@
 import React from 'react';
 import './Popup.css';
+import Tooltip from './Tooltip';
 
 const STATUS_TOOLTIPS = {
   SUCCESS: 'All required data found and valid',
@@ -18,27 +19,22 @@ const STATUS_ICONS = {
 };
 
 const StatusIndicator = ({ status }) => {
-  const [show, setShow] = React.useState(false);
   const iconSrc = STATUS_ICONS[status] || STATUS_ICONS['LOAD'];
   return (
-    <span
-      className={`checklistIndicator checklist${status || 'Load'}`}
-      onMouseEnter={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
-      style={{ position: 'relative' }}
-    >
-      <img
-        src={iconSrc}
-        alt={status || 'LOAD'}
+    <Tooltip content={STATUS_TOOLTIPS[status] || ''}>
+      <span
         className={`checklistIndicator checklist${status || 'Load'}`}
-        style={{ width: 18, height: 18, marginRight: 6 }}
-      />
-      {show && (
-        <span className="custom-tooltip">
-          {STATUS_TOOLTIPS[status] || ''}
-        </span>
-      )}
-    </span>
+        style={{ position: 'relative' }}
+        tabIndex={0}
+      >
+        <img
+          src={iconSrc}
+          alt={status || 'LOAD'}
+          className={`checklistIndicator checklist${status || 'Load'}`}
+          style={{ width: 18, height: 18, marginRight: 6 }}
+        />
+      </span>
+    </Tooltip>
   );
 };
 

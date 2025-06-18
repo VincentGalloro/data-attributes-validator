@@ -1,5 +1,6 @@
 // Highlight logic for content script
 import { HIGHLIGHT_CLASS, HIGHLIGHT_STYLE_ID } from './highlightConstants';
+import itemAttributeMap from './itemAttributeMap';
 
 export function ensureHighlightStyle() {
     if (!document.getElementById(HIGHLIGHT_STYLE_ID)) {
@@ -20,31 +21,6 @@ export function ensureHighlightStyle() {
 
 export function highlightElement(sectionId, itemId) {
     ensureHighlightStyle();
-    const itemAttributeMap = {
-        searchContainer: ['search'],
-        searchNumResults: ['search', 'search-num-results'],
-        browseContainer: ['browse'],
-        browseNumResults: ['browse', 'num-results'],
-        filterName: ['browse', 'filter-name'],
-        filterValue: ['browse', 'filter-value'],
-        itemId: ['item-id'],
-        itemName: ['item-id', 'item-name'],
-        itemVariationId: ['item-id', 'item-variation-id'],
-        itemPrice: ['item-id', 'item-price'],
-        productDetailContainer: ['product-detail'],
-        conversionButton: ['btn'],
-        recommendationContainer: ['recommendations'],
-        podId: ['recommendations', 'pod-id'],
-        resultId: ['recommendations', 'result-id'],
-        recommendationNumResults: ['recommendations', 'num-results'],
-        recommendationItems: ['item'],
-        // Auto Complete section
-        searchForm: ['search-form'],
-        searchInput: ['search-input'],
-        searchSubmitBtn: ['search-submit-btn'],
-        autosuggest: ['autosuggest'],
-        resultItems: ['item-section'],
-    };
     const attrs = itemAttributeMap[itemId];
     if (attrs && attrs.length > 0) {
         const selector = `[data-cnstrc-${attrs[0]}]`;

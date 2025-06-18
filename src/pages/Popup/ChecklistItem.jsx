@@ -1,7 +1,8 @@
 import React from 'react';
 import StatusIndicator from './StatusIndicator';
+import ConsoleIcon from './ConsoleIcon';
 
-const ChecklistItem = ({ sectionId, item, onHighlight }) => (
+const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement }) => (
   <li
     key={item.id}
     id={item.id}
@@ -13,6 +14,7 @@ const ChecklistItem = ({ sectionId, item, onHighlight }) => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <StatusIndicator status={item.status} />
       {item.text || ` ${item.name}`}
+      <ConsoleIcon onClick={e => { e.stopPropagation(); onLogElement(sectionId, item.id); }} />
     </div>
     {Array.isArray(item.subList) && item.subList.length > 0 && (
       <ol className="checklistContainer small" >

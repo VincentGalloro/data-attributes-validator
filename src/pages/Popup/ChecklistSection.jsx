@@ -1,7 +1,7 @@
 import React from 'react';
 import ChecklistItem from './ChecklistItem';
 
-const ChecklistSection = ({ section, onHighlight }) => (
+const ChecklistSection = ({ section, onHighlight, onLogElement }) => (
   <ul id={`${section.id}List`} className="checklistContainer">
     {section.items.map(item => (
       <ChecklistItem
@@ -9,6 +9,7 @@ const ChecklistSection = ({ section, onHighlight }) => (
         sectionId={section.id}
         item={item}
         onHighlight={onHighlight}
+        onLogElement={onLogElement}
       />
     ))}
   </ul>
