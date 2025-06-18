@@ -9,6 +9,7 @@ import SettingsIcon from '../../customComponents/NoOfItemsExistsInTheCatalogue/S
 const Popup = () => {
   const [checklist, setChecklist] = useState(generateInitialChecklist());
   const [activeTab, setActiveTab] = useState(0);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     function pingAttributes(retry) {
@@ -60,25 +61,20 @@ const Popup = () => {
     status: section.status // Pass status for tab indicator
   }));
 
-  const tabs = [
-    ...checklistTabs,
-    {
-      label: 'Settings',
-      content: <SettingsTab />,
-      status: undefined
-    }
-  ];
-
-  // Settings tab index
-  const settingsTabIndex = tabs.length - 1;
+  // Remove Settings from the visible tabs
+  const tabs = checklistTabs;
 
   return (
     <div className="popup-dark-theme" style={{ position: 'relative' }}>
       <h2 className="popup-heading" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         Analyzing Page
-        <SettingsIcon onClick={() => setActiveTab(settingsTabIndex)} />
+        <SettingsIcon onClick={() => setShowSettings(s => !s)} isActive={showSettings} />
       </h2>
-      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+      {showSettings ? (
+        <SettingsTab />
+      ) : (
+        <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+      )}
       <a
         href="https://docs.constructor.com/docs/integrating-with-constructor-behavioral-tracking-data-driven-event-tracking"
         target="_blank"
