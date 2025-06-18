@@ -1,10 +1,11 @@
 import React from 'react';
 import StatusIndicator from './StatusIndicator';
 import ConsoleIcon from './ConsoleIcon';
+import JsonViewer from './JsonViewer';
 
 const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement }) => {
-  // Enable highlight and console icon only if status is 'success'
-  const enableActions = item.status === 'SUCCESS';
+  // Enable highlight and console icon only if status is 'success' and not for requestObject section
+  const enableActions = item.status === 'SUCCESS' && sectionId !== 'requestObject';
 
   return (
     <li
@@ -34,6 +35,13 @@ const ChecklistItem = ({ sectionId, item, onHighlight, onLogElement }) => {
             </li>
           ))}
         </ol>
+      )}
+      {/* Render JSON for requestObjectJson item */}
+      {item.id === 'requestObjectJson' && item.status === 'SUCCESS' && item.json && (
+        <>
+        <br/>
+          <JsonViewer data={item.json} />
+        </>
       )}
     </li>
   );

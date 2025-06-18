@@ -92,3 +92,27 @@ export function checkAutoComplete() {
         sections
     };
 }
+
+export function checkRequestObject() {
+    // Only run on search or browse result pages
+    const isSearch = !!document.querySelector('[data-cnstrc-search]:not([data-cnstrc-search="false"])');
+    const isBrowse = !!document.querySelector('[data-cnstrc-browse]:not([data-cnstrc-browse="false"])');
+    if (!isSearch && !isBrowse) return { present: false };
+    const script = document.querySelector('script#cnstrc-data[type="application/json"]');
+    if (!script) return { present: false };
+    let json = null;
+    try {
+        json = JSON.parse(script.textContent);
+    } catch (e) {
+        return { present: true, validJson: false };
+    }
+    return {
+        present: true,
+        validJson: true,
+        hasRequest: !!json.request,
+        hasResultId: !!json.result_id,
+        request: json.request,
+        result_id: json.result_id,
+        requestObjectJson: json // Pass the full JSON for rendering
+    };
+}
