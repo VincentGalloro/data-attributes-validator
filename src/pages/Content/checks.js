@@ -2,13 +2,15 @@
 import { cqs, cqsa, cqsd, cqsaWithin } from './selectors';
 
 export function checkSearch() {
-    const search = cqs('search');
+    // Explicitly check for [data-cnstrc-search]:not([data-cnstrc-search="false"])
+    const search = document.querySelector('[data-cnstrc-search]:not([data-cnstrc-search="false"])');
     const numResults = cqsd(search, 'NumResults');
     return { isSearchPage: !!search, numResults };
 }
 
 export function checkBrowse() {
-    const browse = cqs('browse');
+    // Explicitly check for [data-cnstrc-browse]:not([data-cnstrc-browse="false"])
+    const browse = document.querySelector('[data-cnstrc-browse]:not([data-cnstrc-browse="false"])');
     const numResults = cqsd(browse, 'NumResults');
     const filterName = cqsd(browse, 'FilterName');
     const filterValue = cqsd(browse, 'FilterValue');
